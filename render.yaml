@@ -1,0 +1,22 @@
+services:
+  - type: web
+    name: pasteshare-api
+    runtime: docker
+    dockerContext: ./backend
+    dockerfilePath: ./backend/Dockerfile
+    healthCheckPath: /actuator/health/readiness
+    envVars:
+      - key: SPRING_DATASOURCE_URL
+        sync: false
+      - key: SPRING_DATASOURCE_USERNAME
+        sync: false
+      - key: SPRING_DATASOURCE_PASSWORD
+        sync: false
+      - key: PASTESHARE_PUBLIC_BASE_URL
+        sync: false
+      - key: PASTESHARE_ALLOWED_ORIGIN
+        sync: false
+      - key: PASTESHARE_MAX_CONTENT_LENGTH
+        value: "100000"
+      - key: PASTESHARE_ID_GENERATION_ATTEMPTS
+        value: "5"
