@@ -19,6 +19,7 @@ import com.pasteshare.config.PasteShareProperties;
 import com.pasteshare.dto.CreatePasteResponse;
 import com.pasteshare.dto.GetPasteResponse;
 import com.pasteshare.entity.Paste;
+import com.pasteshare.entity.PasteTestFactory;
 import com.pasteshare.exception.InvalidPasteException;
 import com.pasteshare.exception.PasteGoneException;
 import com.pasteshare.exception.PasteNotFoundException;
@@ -28,7 +29,6 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
-import org.springframework.test.util.ReflectionTestUtils;
 
 @ExtendWith(MockitoExtension.class)
 class PasteServiceTest {
@@ -137,13 +137,12 @@ class PasteServiceTest {
     }
 
     private Paste paste(String id, String content, Instant expiresAt, Integer maxViews, long viewCount) {
-        Paste paste = new Paste();
-        ReflectionTestUtils.setField(paste, "id", id);
-        ReflectionTestUtils.setField(paste, "content", content);
-        ReflectionTestUtils.setField(paste, "createdAt", NOW.minusSeconds(60));
-        ReflectionTestUtils.setField(paste, "expiresAt", expiresAt);
-        ReflectionTestUtils.setField(paste, "maxViews", maxViews);
-        ReflectionTestUtils.setField(paste, "viewCount", viewCount);
-        return paste;
+        return PasteTestFactory.create(
+                id,
+                content,
+                NOW.minusSeconds(60),
+                expiresAt,
+                maxViews,
+                viewCount);
     }
 }
